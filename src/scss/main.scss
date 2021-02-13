@@ -1,2 +1,69 @@
 // This is where you can import other stylesheets or write your scss code
-@import "../../node_modules/bootstrap/scss/bootstrap";
+// @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "mixins", "variables";
+:root {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-size: 1.6rem;
+  overflow: hidden;
+  min-height: 100vh;
+}
+.container {
+  margin: auto;
+  width: 150rem;
+  height: 50rem;
+  position: relative;
+  perspective: 70rem;
+  @include center;
+
+  .slider {
+    width: 18rem;
+    height: 12rem;
+    animation: motion 20s linear infinite;
+    transform-style: preserve-3d;
+    &:hover {
+      animation-play-state: paused;
+    }
+    .image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      overflow: hidden;
+      transition: 1s;
+      margin-top: 8rem;
+      border: 2px solid orange;
+      @for $i from 1 through 10 {
+        &:nth-of-type(#{$i}) {
+          transform: rotateY(36deg * $i) translateZ(30rem);
+        }
+      }
+      img {
+        height: 100%;
+        width: 100%;
+        transition: 1s;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+@keyframes motion {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
